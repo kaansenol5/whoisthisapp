@@ -11,24 +11,28 @@ import SwiftUI
 // This view represents the initial screen of your app
 struct ContentView: View {
     @StateObject var viewModel = GameViewModel()
+    @State var in_game = false
+    
+    
     var body: some View {
-        VStack(spacing: 20) {
-            Text("Welcome to the Game")
-                .font(.largeTitle)
+        NavigationStack {
+            VStack(spacing: 20) {
+                Text("Welcome to the Game")
+                    .font(.largeTitle)
+                Text(String(viewModel.GameID))
+                Button("Create Game") {
+                    viewModel.sendEvent(event: "create_game")
+                }.buttonStyle(MainButtonStyle())
+                
 
-            Button("Create Game") {
-                viewModel.sendEvent(event: "create_game", withData: ["dat":"dat"])
+                
+                NavigationLink(destination: JoinGameView(model: viewModel)) {
+                    Text("Join Game")
+                }.buttonStyle(MainButtonStyle() )
+                }
             }
-            .buttonStyle(MainButtonStyle())
-
-            Button("Join Game") {
-                print("Join Game tapped")
-            }
-            .buttonStyle(MainButtonStyle())
         }
-        .padding()
     }
-}
 
 // Preview provider for Xcode previews
 struct ContentView_Previews: PreviewProvider {

@@ -15,7 +15,15 @@ class GameViewModel: ObservableObject {
     @Published var questionOptions: [String] = [""]
     @Published var playerData: [Player] = []
     @Published var GameID: Int = 0
-    @Published var connected: Bool = false
+    @Published var ingame: Bool = false
+    @Published var player_name = ""
+    private var cancellables = Set<AnyCancellable>()
+
+    func joinGame() {
+        guard GameID != 0, !player_name.isEmpty else { return }
+        sendEvent(event: "join_game", withData: ["game_id": GameID, "player_name": player_name])
+    }
+    
     init() {
         socketManager = SocketManager(socketURL: URL(string: "http://localhost:6000")!, config: [.log(true), .compress])
         socket = socketManager?.defaultSocket
@@ -27,12 +35,12 @@ class GameViewModel: ObservableObject {
         socket?.on("game_created") { [weak self] data, ack in
             guard let self = self,
                   let gameInfo = data.first as? [String: Any], // Make sure this matches the structure you're sending from the server
-                  let gameId = gameInfo["game_id"] as? String else { return }
+                  let gameId = gameInfo["game_id"] as? Int else { return }
             
             DispatchQueue.main.async {
                 // Now you have the gameId, do whatever you need with it in your app
                 print("Received game ID: \(gameId)")
-                self.GameID = Int(gameId)!
+                self.GameID = Int(exactly: gameId)!
                 // For example, you might update some published property with this game ID
             }
         }
@@ -65,15 +73,23 @@ class GameViewModel: ObservableObject {
         socket?.on("game_created") { [weak self] data, ack in
             guard let self = self,
                   let gameInfo = data.first as? [String: Any], // Make sure this matches the structure you're sending from the server
-                  let gameId = gameInfo["game_id"] as? String else { return }
+                  let gameId = gameInfo["game_id"] as? Int else { return }
             
             DispatchQueue.main.async {
                 // Now you have the gameId, do whatever you need with it in your app
                 print("Received game ID: \(gameId)")
-                self.GameID = Int(gameId)!
+                self.GameID = gameId
                 // For example, you might update some published property with this game ID
             }
         }
+        
+        socket?.on("joined_game") { [weak self] data, ack in
+            DispatchQueue.main.async {
+                self?.ingame = true
+            }
+        }
+        
+        
         
         socket?.on("question_over") { [weak self] data, ack in
             guard let self = self,
@@ -96,12 +112,17 @@ class GameViewModel: ObservableObject {
             
         }
         
+
         socket?.connect()
     }
-    func sendEvent(event: String, withData data: [String: Any]) {
-        socket?.emit(event, data)
+    func sendEvent(event: String, withData data: [String: Any]? = nil) {
+        if let data = data {
+            socket?.emit(event, data)
+        } else {
+            socket?.emit(event)
+        }
+        sleep(1)
     }
-    
     deinit {
         socket?.disconnect()
     }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D0EC6164-8BFE-41F0-86D1-2B5F7507D0A1"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "83DE06C3-42E0-4C6F-9DC5-103E4AC00F1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "whoisthis/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ContentView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "83DE06C3-42E0-4C6F-9DC5-103E4AC00F1A - 88bec23ee9acff26"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "whoisthis.ContentView.init() -&gt; whoisthis.ContentView"
+                  moduleName = "whoisthis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kaansenol/Software/whoisthis/whoisthis/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "83DE06C3-42E0-4C6F-9DC5-103E4AC00F1A - 40d7b3e877b8571c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "whoisthis.ContentView.init(viewModel: @autoclosure () -&gt; whoisthis.GameViewModel, in_game: Swift.Bool) -&gt; whoisthis.ContentView"
+                  moduleName = "whoisthis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kaansenol/Software/whoisthis/whoisthis/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
